@@ -304,6 +304,165 @@ Architecture Diagram in Draw.io
 The Cultural Spaces DAP provides a comprehensive overview of Vancouver’s cultural infrastructure, highlighting key ownership, capacity, and accessibility trends.
 By leveraging these findings, government and private stakeholders can make data-driven decisions to improve venue accessibility, funding allocation, and cultural policy planning.
 
+# PROJECT 2: Cloud-Based Descriptive Analytics on Vancouver Cultural Spaces Using AWS Services
+
+# Project Title
+**Analyzing and Managing Cultural Space Data in Vancouver through AWS Athena and S3**
+
+---
+
+## Objective
+This project aims to perform a detailed **descriptive analysis** on the cultural spaces dataset in Vancouver by leveraging AWS cloud tools. The analysis focuses on answering predefined business questions regarding the number, ownership, size, and capacity of venues. Beyond analysis, the project also implements **data security**, **governance**, **quality control**, and **monitoring**, establishing a robust cloud-based analytics pipeline.
+
+---
+
+## Dataset
+The dataset comprises cleaned cultural space records, previously transformed using AWS Glue DataBrew and stored in Amazon S3 (`cps-trf-itu` bucket). Key fields include:
+
+- `ownership`  
+- `squarefeet`  
+- `numberofseats`  
+- `geom` (geometry)  
+- Additional attributes used in filtering and profiling
+
+---
+
+## Methodology
+
+### 1. Query Configuration and Setup (Amazon Athena + S3)
+- Configured **Athena Query Result Location** to S3: `s3://cps-cur-itu/`
+- Ensured all SQL results are automatically stored and versioned in S3 for auditability
+  
+  ![image](https://github.com/user-attachments/assets/1d164a9b-8c94-467f-8cd1-134b41564300)
+
+
+### 2. Descriptive SQL Analysis – Business Questions Answered
+
+| Business Question | Description |
+|------------------|-------------|
+| **Total cultural spaces** | Used `COUNT(*)` to confirm completeness of the dataset (271 spaces) |
+| **Ownership distribution** | Grouped by `ownership` to identify top categories like Private (95) and City (69) |
+| **Minimum venue size** | Queried `MIN(squarefeet)` – smallest venue is 600 sq ft |
+| **Maximum seating capacity** | Queried `MAX(numberofseats)` – largest venue has 2,756 seats |
+| **Combined insights** | Identified the most common ownership and matched with min/max capacity stats |
+
+Total cultural spaces** | Used `COUNT(*)` to confirm completeness of the dataset (271 spaces)
+
+![image](https://github.com/user-attachments/assets/e492ba1e-5d3b-4c4a-8950-1131709a48eb)
+
+Ownership distribution** | Grouped by `ownership` to identify top categories like Private (95) and City (69)
+
+![image](https://github.com/user-attachments/assets/7a60c07b-723f-4105-91a9-de79ba2872a3)
+
+Minimum venue size** | Queried `MIN(squarefeet)` – smallest venue is 600 sq ft
+
+![image](https://github.com/user-attachments/assets/57426461-1353-416c-b40c-512dc230f99a)
+
+Maximum seating capacity** | Queried `MAX(numberofseats)` – largest venue has 2,756 seats
+
+![image](https://github.com/user-attachments/assets/7b426d60-a87b-4a58-8de4-02d9319992f7)
+
+Combined insights** | Identified the most common ownership and matched with min/max capacity stats
+
+![image](https://github.com/user-attachments/assets/1cf36d32-e50b-4cdf-9b1a-492f026c2103)
+
+- Compared results with Project One (which had a `numberofseats <= 300` filter), noting significant insight differences between filtered and full datasets.
+
+### 3. Data Security Configuration (Amazon S3 + AWS KMS)
+- Created **customer-managed KMS key** `cultural-spaces-key-itu`
+- 
+  ![image](https://github.com/user-attachments/assets/4c36f45c-9633-42f9-bb9a-456c7053b2a1)
+
+- Enabled **SSE-KMS encryption and bucket versioning** on raw data bucket `cps-raw-itu`
+
+  ![image](https://github.com/user-attachments/assets/a92377eb-e83e-4f05-bcb4-9b57c5c61eb0)
+
+- All uploaded data is now automatically encrypted at rest
+
+### 4. Cross-Region Replication Setup (High Availability)
+- Enabled **cross-region replication** from:
+  - `cps-raw-itu` and `cps-trf-itu` (Vancouver) → US East (Virginia)
+    ![image](https://github.com/user-attachments/assets/e865ba3d-3cd0-486a-84b4-b4c8976dd1d2)
+
+- Configured IAM role permissions via `LabRole`
+- Ensured replication includes **KMS-encrypted files**
+  
+![image](https://github.com/user-attachments/assets/2c91f47c-0d3c-4bf7-a8f4-44b08c9e85bd)
+
+### 5. Data Quality Control (AWS Glue Data Quality Jobs)
+- Built **AWS Glue job**: `cultural-spaces-QC-itu`
+  ![image](https://github.com/user-attachments/assets/adca073a-54ce-4352-9f99-29fef4b01b18)
+
+- Implemented **two rules**:
+  - Completeness on `ownership` ≥ 95%
+  - Uniqueness on `geom` ≥ 85%
+  ![image](https://github.com/user-attachments/assets/04bc5a13-141a-4740-b7aa-558d1417b3fd)
+
+- Separated results into:
+  - `Passed` folder: Valid, clean records
+  ![image](https://github.com/user-attachments/assets/41d9a824-9780-4d1e-911b-a9662ef2ce56)
+
+  - `Failed` folder: Duplicates or missing geometry (esp. 2015–2017 records)
+   ![image](https://github.com/user-attachments/assets/baa7be2f-412e-4db3-9d5f-f7db3dd3f333)
+
+- Ensured QC results are stored cleanly for future transformation or exclusion
+  
+
+### 6. Monitoring and Alerts (CloudWatch + CloudTrail)
+- Created **CloudWatch Alarm** `cultural-spaces-size-alm` to monitor `BucketSizeBytes`
+  - Threshold: 40,000 bytes
+  ![image](https://github.com/user-attachments/assets/947da42b-f886-4a1c-ab4d-caaeb4b9fa70)
+  - Action: Email alert via **SNS** to `Itunuoluwa.moses@myucwest.ca`
+![image](https://github.com/user-attachments/assets/a6a27962-0437-4fc3-8822-f0a1cc5cf13f)
+
+- Created **CloudWatch Dashboard**: `cultural-spaces-MCR-itu`
+  - Includes widgets to monitor bucket size and resource usage
+![image](https://github.com/user-attachments/assets/b06ac6f3-376a-4423-bf94-9a1c47cf7af2)
+
+- Enabled **CloudTrail multi-region logging**:
+  - Trail: `cultural-spaces-trail-itu`
+  - Logs stored in: `aws-cloudtrail-logs-9033-7951-7541`
+  - Tracks who accessed data and what services were used
+![image](https://github.com/user-attachments/assets/e4436106-d464-4f2c-92fe-0d34b07741e5)
+
+---
+
+## Insights and Findings
+- Dataset includes **271 cultural venues** across various ownerships  
+- **Privately owned** venues are most common and span a wide range of sizes  
+- **Smallest venue**: 600 sq ft | **Largest seating**: 2,756  
+- Historical records (2015–2017) tend to have more quality issues (duplicate coordinates)  
+- Filtering data can significantly affect insights—as shown in the contrast with Project One
+
+---
+
+## Recommendations
+- City stakeholders can use these findings to **balance funding** between large venues and accessible community spaces  
+- Consider stricter **data entry quality control** for ownership and geolocation fields  
+- Leverage encryption + monitoring setups as a model for other municipal datasets to ensure **compliance and security**
+
+---
+
+## Tools and Technologies Used
+- **Amazon Athena** – SQL querying  
+- **Amazon S3** – Storage and result output  
+- **AWS Glue DataBrew & Studio** – Cleaning and data quality jobs  
+- **AWS KMS** – Encryption  
+- **AWS CloudWatch** – Monitoring, dashboard, and alerts  
+- **AWS CloudTrail** – Pipeline activity tracking  
+- **SNS** – Email alerting
+
+---
+
+## Deliverables
+- SQL queries and results stored in versioned S3 buckets  
+- Glue data quality job output (passed & failed datasets)  
+- Security configuration with KMS  
+- Monitoring setup (dashboard, alerts, CloudTrail logs)  
+- This full descriptive report for analysis and portfolio inclusion
+
+
+
 # Data Wrangling Report: UCW Academic Hiring Dataset
 
 ## Project Title
