@@ -918,6 +918,7 @@ Let me know if you want this in **Markdown (`.md`)**, **Word (`.docx`)**, or add
 
 # COMPLETION BADGE
 
+![image](https://github.com/user-attachments/assets/4f87af54-a801-43d2-bbc8-fdebdcef0437)
 
 
 
