@@ -462,7 +462,7 @@ Combined insights** | Identified the most common ownership and matched with min/
 
 
 
-#Project 3:  Data Wrangling Report: UCW Academic Hiring Dataset
+# Project 3:  Data Wrangling Report: UCW Academic Hiring Dataset
 
 ## Project Title
 Data Wrangling for UCW Academic Hiring Data
@@ -791,7 +791,7 @@ Feedback Mechanism
 This Data Quality Control initiative has successfully established a clear, rule-based validation process for the academic hiring dataset. It provides a reliable foundation for maintaining clean records and supports better decision-making. The passed/failed folder structure ensures traceability, while the Glue pipeline offers repeatability and room for future enhancements such as degree standardization or automated correction. This initiative helps the department maintain high data integrity and ensures that recruitment decisions are supported by clean, accurate, and trustworthy data.
 
 
-#Project 5:  **Data Quality Control for City of Vancouver- Cultural spaces**
+# Project 5:  **Data Quality Control for City of Vancouver- Cultural spaces**
 
 ### **Project Description:**  
 Data Quality Control Initiative for Vancouver Cultural Spaces Dataset
@@ -911,9 +911,6 @@ The project covers the following core quality areas:
 
 This Data Quality Control initiative significantly enhanced the **accuracy** and **reliability** of the cultural spaces dataset, supporting trustworthy analysis and informed decision-making for municipal and public planning use.
 
----
-
-Let me know if you want this in **Markdown (`.md`)**, **Word (`.docx`)**, or added into your current GitHub `README` file.
 
 # AWS COMPLETION BADGE
 
