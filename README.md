@@ -453,7 +453,8 @@ After validation, the raw datasets were:
       
       o	Experience Years and Publications: Rounded to the nearest whole number for consistency in reporting.
 
-![image](https://github.com/user-attachments/assets/5ed6b5e6-36b0-4fd8-bf60-5e64eaad1b05)
+![image](https://github.com/user-attachments/assets/41291fee-7b56-46b1-ba1a-ff5de831aeaa)
+
 
 ## Final Outcome and Insights
 
