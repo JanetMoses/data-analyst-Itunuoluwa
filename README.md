@@ -370,7 +370,8 @@ Data Collection & Organization in Amazon S3
 
 Each dataset was stored as a CSV file in the respective folders.
 
-![image](https://github.com/user-attachments/assets/6a14d923-fc93-42e3-9680-ad93eecea056)
+![image](https://github.com/user-attachments/assets/5b11ec54-03ef-473a-93ae-354ff0938f7a)
+
 
 ## Data Access and Initial Exploration
 
@@ -425,8 +426,8 @@ After validation, the raw datasets were:
       o	3% missing in "Degree"
       
       o	1% missing in "Hiring Status"
-   
-![image](https://github.com/user-attachments/assets/8f6b9ebe-2bc7-4784-8816-0b93d71b8c66)
+
+   ![image](https://github.com/user-attachments/assets/5896b5ad-0514-4a50-b0ac-436b3f2fd3d5)
 
 ## Data Cleaning (Error Handling and Standardization)
 
