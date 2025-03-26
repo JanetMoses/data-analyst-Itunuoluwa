@@ -1,5 +1,4 @@
-# data-analyst-Itunuoluwa
-#Project 1- Descriptive Analysis: Cultural Spaces in Vancouver (DAP Implementation)
+# Project 1- Descriptive Analysis: Cultural Spaces in Vancouver (DAP Implementation)
 
 ## Project Description
 
