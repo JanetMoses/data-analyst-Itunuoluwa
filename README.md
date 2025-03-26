@@ -229,6 +229,12 @@ Data Insights Visualization
 
  ![image](https://github.com/user-attachments/assets/11acc3f6-a398-4917-8526-998144e6c48b)
 
+ User folder
+![image](https://github.com/user-attachments/assets/53e0a204-c503-40b7-8165-26135f31231e)
+
+System Folder
+![image](https://github.com/user-attachments/assets/da66d024-f58f-48ac-8924-0370ebf3b51b)
+
 ##  Recommendations (Actionable Insights Based on Findings)
  
 1.	Increase Funding for Mid-Sized Venues
