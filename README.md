@@ -792,7 +792,131 @@ Feedback Mechanism
 This Data Quality Control initiative has successfully established a clear, rule-based validation process for the academic hiring dataset. It provides a reliable foundation for maintaining clean records and supports better decision-making. The passed/failed folder structure ensures traceability, while the Glue pipeline offers repeatability and room for future enhancements such as degree standardization or automated correction. This initiative helps the department maintain high data integrity and ensures that recruitment decisions are supported by clean, accurate, and trustworthy data.
 
 
+#Project 5:  **Data Quality Control for City of Vancouver- Cultural spaces**
 
+### **Project Description:**  
+Data Quality Control Initiative for Vancouver Cultural Spaces Dataset
+
+---
+
+### **Project Title:**  
+Implementation of Data Quality Control Measures using AWS Glue for Cultural Space Data
+
+---
+
+### **Objective:**  
+The objective of this project is to establish a robust Data Quality Control (DQC) framework for the Vancouver cultural spaces dataset. This framework ensures data completeness and uniqueness, enabling reliable descriptive analysis and policy planning while reinforcing the integrity of cloud-based data pipelines.
+
+---
+
+### **Background:**  
+As the dataset for Vancouver’s cultural venues expanded across multiple sources and years (2015–2020+), issues such as missing ownership data and duplicated location points became evident. These data quality challenges can lead to misleading insights and hinder public infrastructure planning. This project addresses these concerns using AWS-native services to enforce quality rules and isolate invalid records.
+
+---
+
+### **Scope:**  
+The project covers the following core quality areas:
+- **Data Profiling:** Assess the structure, validity, and uniqueness of venue records.  
+- **Data Validation:** Implement field-level rules to check for missing values and duplicates.  
+- **Data Segmentation:** Separate valid records from problematic ones using Glue branching.  
+- **Storage and Logging:** Store passed and failed outputs separately in S3 for traceability.  
+- **Monitoring and Reporting:** Maintain full transparency of rule outcomes for auditing.
+
+---
+
+### **Methodology:**
+
+#### **1. Current State Assessment**
+- Reviewed transformed datasets stored in S3 (`cps-trf-itu`)
+![image](https://github.com/user-attachments/assets/816ee1b7-b821-4697-8910-ca24aa85002d)
+
+- Identified inconsistencies in `ownership` and repeated `geo_point_2d` values from years like 2015–2017
+
+
+#### **2. Data Profiling**
+- Used AWS Glue Studio’s visual data preview to evaluate field fill rates and uniqueness  
+- Focused on two main fields: `ownership` and `geom`
+![image](https://github.com/user-attachments/assets/51fc4afd-5fd4-451c-b5da-eaad978ce1b8)
+
+
+#### **3. Establish Data Quality Metrics**
+- **Completeness Rule:** `ownership` must be ≥ 95% non-null  
+- **Uniqueness Rule:** `geom` must be ≥ 85% distinct across records
+  
+![image](https://github.com/user-attachments/assets/6d9b87d1-68be-47e2-add1-5704d5bbe13f)
+
+#### **4. Data Validation Rules**
+- Defined and applied rules in AWS Glue Data Quality transform:
+  ```python
+  Rules = [
+    Completeness "ownership" >= .95,
+    Uniqueness "geom" > .85
+  ]
+  ```
+- Configured branching: valid records directed to `Quality_passed`, invalid to `default_group`
+
+#### **5. Output Segmentation & Cleansing**
+
+**-AWS gkue ETL Pipeline**
+![image](https://github.com/user-attachments/assets/ded8cdc3-0b68-4156-b936-ec68fcc8e9d1)
+
+- **Passed records:** Saved in  
+  `s3://cps-trf-itu/cps-data/theatreperformance/Quality Check/Passed/`  
+  File: `run-1742615306095-part-r-00000`
+![image](https://github.com/user-attachments/assets/50651c6a-1075-4a1c-801b-88b663587010)
+  
+
+- **Failed records:** Saved in  
+  `s3://cps-trf-itu/cps-data/theatreperformance/Quality Check/Failed/`  
+  File: `run-1742615285164-part-r-00000`
+![image](https://github.com/user-attachments/assets/350157b4-d483-4d3a-b9a1-4fe0f87b8862)
+
+
+#### **6. Monitoring and Reporting**
+- AWS Glue Studio provided evaluation feedback for each rule  
+- Visual previews helped compare records tagged “Passed” vs. “Failed”  
+- Detected most failures from years 2015, 2016, and 2017
+
+#### **7. Training and Best Practices**
+- Process steps documented to enable repeatable application across other datasets  
+- Promotes consistent handling of quality rules in future Glue pipelines
+
+#### **8. Feedback Mechanism**
+- Continuous refinement of rules and thresholds based on inspection of failed data  
+- Historical records flagged for possible correction or exclusion
+
+---
+
+### **Tools and Technologies:**
+- **AWS Glue Studio** – Data quality rule configuration and visual job orchestration  
+- **Amazon S3** – Data storage and rule-based output separation  
+- **Athena (indirect)** – Downstream analytics on cleaned dataset  
+- **Python (underlying Glue logic)** – Rule definitions and field transformations
+
+---
+
+### **Deliverables:**
+- AWS Glue Job: `cultural-spaces-QC-itu`  
+- Quality rule definition and evaluation reports  
+- Passed and failed datasets stored in distinct S3 folders  
+- Documentation of metrics and rule thresholds  
+- Optional integration into a broader analytics pipeline
+
+---
+
+### **Timeline:**
+- Completed in ~1 week within broader descriptive analysis timeline  
+- Included data assessment, rule design, job implementation, and result validation
+
+---
+
+This Data Quality Control initiative significantly enhanced the **accuracy** and **reliability** of the cultural spaces dataset, supporting trustworthy analysis and informed decision-making for municipal and public planning use.
+
+---
+
+Let me know if you want this in **Markdown (`.md`)**, **Word (`.docx`)**, or added into your current GitHub `README` file.
+
+# COMPLETION BADGE
 
 
 
