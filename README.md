@@ -767,14 +767,14 @@ Feedback Mechanism
    • Amazon S3 – For storing raw, processed, passed, and failed datasets
    
    • Draw.io – For pipeline architecture illustration
+![image](https://github.com/user-attachments/assets/a82b7b29-1200-4fb2-b81f-47c6c52b59c7)
+![image](https://github.com/user-attachments/assets/dc6fc41d-1276-491a-b5b0-a2162b8e3574)
    
 ## Deliverables
    • A working Data Quality Control pipeline using AWS Glue
-![image](https://github.com/user-attachments/assets/dc6fc41d-1276-491a-b5b0-a2162b8e3574)
-
 
    • Separate passed/failed dataset outputs organized in Amazon S3
-   
+
    • Screenshots and documentation of validation rules and outcomes
    
    • Data profiling summary highlighting key field completeness and uniqueness
