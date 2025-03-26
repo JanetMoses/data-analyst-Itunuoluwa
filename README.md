@@ -165,6 +165,16 @@ Summarization Pipeline in AWS Glue Studio
 
 ![image](https://github.com/user-attachments/assets/18fe9b84-4641-4ed3-81d4-7eba6bd579bd)
 
+User Folder in S3
+
+![image](https://github.com/user-attachments/assets/6570de29-bf71-4bd6-9c63-461bb6066df9)
+
+System Folder in S3
+
+![image](https://github.com/user-attachments/assets/419a85a1-d743-4197-a9b6-8fe6ca81c4e9)
+
+
+
 AWS Cost Estimation
 
    •	Estimated Monthly Cost: $25
@@ -228,12 +238,6 @@ AWS Cost Estimation Calculation
 Data Insights Visualization
 
  ![image](https://github.com/user-attachments/assets/11acc3f6-a398-4917-8526-998144e6c48b)
-
- User folder
-![image](https://github.com/user-attachments/assets/53e0a204-c503-40b7-8165-26135f31231e)
-
-System Folder
-![image](https://github.com/user-attachments/assets/da66d024-f58f-48ac-8924-0370ebf3b51b)
 
 ##  Recommendations (Actionable Insights Based on Findings)
  
