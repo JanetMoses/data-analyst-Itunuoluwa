@@ -294,6 +294,335 @@ Architecture Diagram in Draw.io
 The Cultural Spaces DAP provides a comprehensive overview of Vancouver’s cultural infrastructure, highlighting key ownership, capacity, and accessibility trends.
 By leveraging these findings, government and private stakeholders can make data-driven decisions to improve venue accessibility, funding allocation, and cultural policy planning.
 
+# Data Wrangling Report: UCW Academic Hiring Dataset
+
+## Project Title
+Data Wrangling for UCW Academic Hiring Data
+
+## Project Objective
+
+The objective of this project is to clean, transform, and structure the UCW Academic Hiring dataset to ensure data accuracy, consistency, and readiness for analysis. The key goals include:
+
+•	Handling missing values in faculty application records
+
+•	Removing duplicate entries to avoid data redundancy
+
+•	Standardizing formats for consistency in applicant information
+
+•	Structuring data for optimized querying using AWS services
+
+•	Aligning dataset cleaning with faculty hiring criteria from UCW policy
+
+## Project Description
+
+This project leverages AWS cloud services for data profiling, cleaning, and structuring. The dataset, stored in Amazon S3, contains faculty hiring application records, including applicant details, qualifications, and hiring decisions. Using AWS Glue DataBrew, AWS Glue Catalog, and AWS S3, the data is transformed to meet quality and analysis requirements while aligning with UCW-5008 Hiring and Appointment of Faculty Policy.
+
+## Data Source
+
+•	UCW Hiring and Appointment of Faculty Policy (UCW-5008)
+
+•	Document Link: UCW Faculty Policy PDF
+
+•	Description:
+
+The policy document outlines the faculty hiring process, eligibility criteria, appointment types, and evaluation standards at the University Canada West (UCW). This dataset is structured based on faculty hiring applications and qualifications, ensuring alignment with the policy’s hiring framework.
+
+## Dataset Description
+
+The dataset contains faculty hiring application records, structured into four categories, each stored in a separate folder:
+Folder Name	Description
+
+      academic-user-log/:    Logs of faculty application activity
+      
+      application-list/ :    List of applicants and their hiring status
+      
+      course-list/: 	        Courses applied for by faculty members
+      
+      degree-list/ :          Educational qualifications of applicants
+
+## Data Ingestion Process
+
+Overview of Data Ingestion
+
+Data ingestion is the process of collecting, importing, and storing raw data from multiple sources into a centralized system for processing. In this project, Amazon S3 was used as the primary storage location for ingesting and managing the raw UCW Academic Hiring dataset before cleaning and transformation.
+
+## Sources of Data
+
+The data was collected from the UCW Hiring and Appointment of Faculty Policy (UCW-5008) and structured into an application dataset containing information on faculty hiring records, qualifications, and appointment decisions.
+The dataset was provided in CSV format and stored in Amazon S3 for further processing.
+Steps in the Data Ingestion Process
+
+Data Collection & Organization in Amazon S3
+
+   •	The raw dataset was uploaded into an Amazon S3 bucket to facilitate structured storage and access for the data wrangling process.
+   
+   •	A folder structure was established within S3 to categorize different data elements, ensuring efficient retrieval and management.
+
+### Amazon S3 Bucket Structure
+
+      s3://academics-raw-itu/hiring/academic-user-log/:  Logs of faculty application activities
+      
+      s3://academics-raw-itu/hiring/application-list/:   List of applicants and their hiring status
+      
+      s3://academics-raw-itu/hiring/course-list/:        Courses applied for by faculty members
+      
+      s3://academics-raw-itu/hiring/degree-list/:        Educational qualifications of applicants
+
+Each dataset was stored as a CSV file in the respective folders.
+
+![image](https://github.com/user-attachments/assets/6a14d923-fc93-42e3-9680-ad93eecea056)
+
+## Data Access and Initial Exploration
+
+      •	The data was accessed from S3 using AWS Glue DataBrew to examine the structure and ensure all files were properly formatted.
+      
+      •	The dataset was checked for inconsistencies, such as corrupted rows, incorrect delimiters, and encoding issues.
+
+## Findings from Initial Data Exploration
+
+      •	Some fields contained unexpected null values, which required further cleaning.
+      
+      •	The degree-list dataset had inconsistencies in degree naming conventions (e.g., “Ph.D.” vs. “PhD” vs. “Doctorate”).
+      
+      •	The applicant IDs in application-list had varying formats, requiring standardization.
+
+Storage and Data Integration for Processing
+
+After validation, the raw datasets were:
+
+1.	Copied to a transformation bucket (s3://academics-trf-itu/) to apply cleaning and structuring.
+3.	Integrated into AWS Glue DataBrew for profiling and cleaning.
+4.	Prepared for further transformation before being cataloged in AWS Glue.
+   
+## Updated Storage Path after Ingestion
+
+      s3://academics-raw-itu/: 	Raw data storage (original files)
+      s3://academics-trf-itu/:	Transformation bucket (cleaning process)
+      s3://academics-cur-itu/:	Final curated dataset storage
+
+## Data Profiling (Quality Check)
+
+   •	Used AWS Glue DataBrew to profile the dataset.
+   
+   •	Identified missing values, duplicate rows, and incorrect data types.
+   
+   •	A correlation matrix was generated to examine relationships between variables (e.g., Years of Experience and Publications).
+
+## Findings:
+
+   •	Total Rows: 50
+   
+   •	Total Columns: 10
+   
+   •	Data Types: 
+
+      o	Integer: 4 columns (Years of Experience, Publications, etc.)
+      
+      o	String: 6 columns (Name, Degree, Hiring Status, etc.)
+
+   •	Missing Values: 
+
+      o	3% missing in "Degree"
+      
+      o	1% missing in "Hiring Status"
+   
+![image](https://github.com/user-attachments/assets/8f6b9ebe-2bc7-4784-8816-0b93d71b8c66)
+
+## Data Cleaning (Error Handling and Standardization)
+
+•	Handling Missing Values:
+
+      o	Degree column: Missing values were filled with the most frequent degree (e.g., "PhD"), aligning with UCW faculty hiring requirements.
+      
+      o	Hiring Status column: Missing values were set to "Pending," ensuring unreviewed applications are properly classified.
+      
+      o	Courses Applied For: Missing values were filled with "General Teaching" if no course was provided.
+
+•	Handling Duplicates:
+
+      o	Duplicate Applicant IDs were detected and removed.
+      
+      o	Checked for duplicate names and verified against application dates.
+
+•	Standardizing Formats:
+
+      o	Applicant ID: Ensured a uniform format ("UCW-XXXXXX").
+      
+      o	Degree Names: Converted to a consistent format ("PhD," "Master's," "Bachelor's") to match UCW hiring categories.
+      
+      o	Experience Years and Publications: Rounded to the nearest whole number for consistency in reporting.
+
+![image](https://github.com/user-attachments/assets/5ed6b5e6-36b0-4fd8-bf60-5e64eaad1b05)
+
+## Final Outcome and Insights
+
+### Key Outcomes
+
+•	Dataset cleaned and structured for easy querying.
+
+•	Missing values handled using imputation techniques.
+
+•	Data stored in AWS Glue Catalog for efficient access.
+
+•	Standardized Applicant IDs and Degree Names for uniformity.
+
+## Insights Discovered
+
+•	Higher education correlates with hiring approvals, aligning with UCW hiring policies.
+
+•	Applicants with more than five years of experience have a higher acceptance rate.
+
+•	Courses in high demand received more faculty applications.
+
+## Conclusion and Recommendations
+
+### Final Thoughts
+
+The UCW Academic Hiring dataset was successfully cleaned, transformed, and structured using AWS services. The wrangling process ensures that the data is accurate, consistent, and optimized for hiring analysis, aligning with UCW faculty hiring policies.
+
+## Recommendations
+
+•	Implement automated data validation in AWS Glue to detect errors in real-time.
+
+•	Enhance data partitioning strategies to improve query performance.
+
+•	Integrate Amazon QuickSight to visualize hiring trends dynamically.
+
+## Deliverables
+
+•	Cleaned dataset stored in Amazon S3
+
+•	AWS Glue Data Catalog for querying
+
+•	Screenshots of each step
+
+•	Final report and insights
+
+# Data Quality Control
+
+## Project Title: Implementation of Data Quality Control Measures for the Academic Hiring Dataset
+
+## Project objectuve
+
+The primary objective of this project is to implement a focused Data Quality Control (DQC) framework for the academic hiring dataset used by the department. This framework ensures the accuracy, completeness, uniqueness, and reliability of faculty application data, thereby improving the quality of downstream analytics, reporting, and hiring-related decision-making.
+Background
+The Academic Hiring Department relies heavily on accurate and clean data for processing applications and supporting faculty recruitment decisions. As application records increase over time, maintaining data quality becomes more critical. Preliminary reviews of the current dataset highlighted common challenges such as duplicate entries, repeated degree values, and a need for ongoing quality validation. This initiative introduces a structured DQC process using AWS Glue Studio, DataBrew, and Amazon S3 to manage and monitor the quality of this dataset effectively.
+
+## Scope
+
+The project focuses on the following key areas:
+
+   • Data Profiling: Analyzing application data to assess its completeness and uniqueness
+   
+   • Data Validation: Applying rules to enforce basic quality thresholds
+   
+   • Monitoring and Reporting: Routing and tracking data into passed/failed quality folders
+   
+   • Process Documentation: Outlining steps and outputs for institutional reporting
+   Methodology
+
+## Current State Assessment
+
+   •	Analyzed the department’s hiring dataset stored in s3://academics-raw-itu/hiring/application-list/
+   
+   •	Identified that the dataset includes key fields like Name, Applicant ID, Degree, and Department
+   
+   •	Preliminary review indicated issues such as non-unique degrees and a need for systematic completeness validation
+
+## Data Profiling
+
+   •	Used AWS Glue Visual ETL and DataBrew to evaluate data structure
+   
+   •	Applied profiling checks to three primary fields: name, applicant ID, and degree
+   
+   •	Key profiling results:
+
+      - Name: ≥ 80% complete – Passed
+      - Applicant ID: ≥ 45% unique – Passed
+      - Degree: ≥ 75% unique – Failed
+      Establish Data Quality Metrics
+•	Defined rule-based thresholds for quality control:
+
+      - Name completeness ≥ 80%
+      - Applicant ID uniqueness ≥ 45%
+      - Degree uniqueness ≥ 75%
+
+All metrics were evaluated within Glue Studio’s rule framework, and records were routed accordingly
+![image](https://github.com/user-attachments/assets/f9752127-a860-4c1f-ac69-414a9ac86bd8)
+
+## Data Cleansing Processes
+
+   •	No transformations or corrections were applied directly
+   
+   •	Failed records were isolated into a separate S3 folder for manual review
+   
+   •	Duplicate records were automatically filtered out during the ETL process
+   
+   •	No standardization (e.g., formatting of degrees or names) was conducted at this stage
+   Validation Rules and Procedures
+   
+   •	Glue Studio nodes enforced rule logic for completeness and uniqueness
+   
+   •	Records meeting all validation criteria were routed to a 'Passed' output
+   
+   •	Records failing any rule were routed to a 'Failed' output for transparency
+   Monitoring and Reporting
+   
+   •	Amazon S3 was used to separate clean vs. problematic records:
+
+      - s3://academics-trf-itu/.../QualityCheck/Passed/
+      - s3://academics-trf-itu/.../QualityCheck/Failed/
+
+![image](https://github.com/user-attachments/assets/536957ea-1825-4648-baa5-3939af0e0a7a)
+This folder structure enables ongoing tracking of issues and supports transparency during reporting
+
+Training and Best Practices
+
+   •	As part of follow-up, it is recommended that staff who handle hiring data be introduced to basic validation principles
+   
+   •	A data entry guide can help ensure consistent field formats (e.g., degrees or applicant IDs), especially as new records are added
+
+Feedback Mechanism
+
+   •	Validation output logs and failed records provide a clear feedback loop
+   •	Manual review of failed records supports process improvement and readiness for future automation
+   
+## Tools and Technologies
+
+   • AWS Glue Studio – For building and executing Visual ETL workflows with rule logic
+   
+   • AWS Glue DataBrew – For dataset profiling and insight generation
+   
+   • Amazon S3 – For storing raw, processed, passed, and failed datasets
+   
+   • Draw.io – For pipeline architecture illustration
+   
+## Deliverables
+   • A working Data Quality Control pipeline using AWS Glue
+![image](https://github.com/user-attachments/assets/dc6fc41d-1276-491a-b5b0-a2162b8e3574)
+
+   • Separate passed/failed dataset outputs organized in Amazon S3
+   
+   • Screenshots and documentation of validation rules and outcomes
+   
+   • Data profiling summary highlighting key field completeness and uniqueness
+   
+   • A clear record of data failures (e.g., degree values below uniqueness threshold) for further review
+
+## Timeline
+
+   • Total duration of implementation and testing: 8 weeks
+   
+   • Activities included: Dataset review, rule setup, ETL build, execution, result validation, and reporting
+   
+## Conclusion
+
+This Data Quality Control initiative has successfully established a clear, rule-based validation process for the academic hiring dataset. It provides a reliable foundation for maintaining clean records and supports better decision-making. The passed/failed folder structure ensures traceability, while the Glue pipeline offers repeatability and room for future enhancements such as degree standardization or automated correction. This initiative helps the department maintain high data integrity and ensures that recruitment decisions are supported by clean, accurate, and trustworthy data.
+
+
+
+
+
 
 
 
