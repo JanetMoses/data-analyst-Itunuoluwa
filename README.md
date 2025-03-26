@@ -1,14 +1,15 @@
 # data-analyst-Itunuoluwa
-**Descriptive Analysis: Cultural Spaces in Vancouver (DAP Implementation)
-Project Description**
+# Descriptive Analysis: Cultural Spaces in Vancouver (DAP Implementation)
+
+## Project Description
 
 This project focuses on designing and implementing a Data Analytic Platform (DAP) for the City of Vancouver, specifically analyzing Cultural Spaces. The goal is to process and analyze data related to cultural venues, ownership types, seating capacity, and space distribution using AWS cloud services.
 
-**Project Title**
+## Project Title
 
 Understanding Cultural Spaces in Vancouver
 
-**Project Objective**
+## Project Objective
 
 The objective of this project is to ingest, clean, process, and analyze the cultural spaces dataset from the City of Vancouver Open Data Portal to:
 
@@ -20,7 +21,7 @@ The objective of this project is to ingest, clean, process, and analyze the cult
 
 •	Generate insights that can support future cultural planning and investments.
 
-**Project Requirements**
+## Project Requirements
 
 1.	Design and Implement a Data Analytic Platform
 2.	Develop a cloud-based platform for data analytics using AWS
@@ -36,7 +37,7 @@ o	Step 4: Data Cataloging
 
 o	Step 5: Data Summarization
 
-**Dataset**
+## Dataset
 
 •	Source: City of Vancouver Open Data Portal
 
@@ -44,7 +45,7 @@ o	Step 5: Data Summarization
 
 •	Format: CSV
 
-**Data Fields:**
+## Data Fields:
 
 •	Cultural Space Name: Unique name of the venue
 
@@ -58,9 +59,9 @@ o	Step 5: Data Summarization
 
 •	Website: Official website link 
 
-**Methodology**
+## Methodology
 
-Step 1: Data Ingestion
+### Step 1: Data Ingestion
 
 •	Process: The raw dataset was accessed and downloaded from the City of Vancouver Open Data Portal.
 
@@ -80,7 +81,7 @@ AWS S3 Data Ingestion Setup
 ![image](https://github.com/user-attachments/assets/b064d4ac-e0f9-4cbc-8b8f-46fd3551dbdc)
 Note. Screenshots from AWS console indicating successful data ingestion in S3 bucket.
 
-Step 2: Data Profiling
+### Step 2: Data Profiling
 
 •	Process: AWS Glue DataBrew was used to profile the dataset, checking for missing values, data types, and statistical summaries.
 
@@ -98,7 +99,7 @@ Data Profiling Summary from AWS Glue DataBrew
 
 ![image](https://github.com/user-attachments/assets/95d488c1-a5a8-4413-b14e-e2016154d466)
 
-Step 3: Data Cleaning
+### Step 3: Data Cleaning
 
 •	Handling Missing Values: 
 
@@ -118,7 +119,7 @@ Data Cleaning Steps in AWS Glue
 
 ![image](https://github.com/user-attachments/assets/49c2dee3-00f6-46af-8944-ae0303a83d79)
 
-Step 4: Data Cataloging
+### Step 4: Data Cataloging
 
 •	AWS Glue Data Catalog was used to create structured metadata storage for easy querying.
 
@@ -140,7 +141,7 @@ AWS Glue Data Catalog Setup
 
 ![image](https://github.com/user-attachments/assets/9d928053-f6ff-49ec-baeb-87775f6102e7)
 
-Step 5: Data Summarization
+### Step 5: Data Summarization
 
 •	Summarization Pipeline: 
 
@@ -182,7 +183,7 @@ o	Partitioned data for efficient storage retrieval
 AWS Cost Estimation Calculation
 ![image](https://github.com/user-attachments/assets/f474d1af-a0b8-4dcd-a8aa-45086dbeb9d2)
 
-Actual Discoveries (Key Insights from the Data)
+## Actual Discoveries (Key Insights from the Data)
 
 1.	Government-Owned Cultural Spaces Dominate Capacity
    
