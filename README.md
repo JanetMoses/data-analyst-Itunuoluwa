@@ -1,5 +1,5 @@
 # data-analyst-Itunuoluwa
-# Descriptive Analysis: Cultural Spaces in Vancouver (DAP Implementation)
+#Project 1- Descriptive Analysis: Cultural Spaces in Vancouver (DAP Implementation)
 
 ## Project Description
 
@@ -370,19 +370,19 @@ Combined insights** | Identified the most common ownership and matched with min/
 
 ### 3. Data Security Configuration (Amazon S3 + AWS KMS)
 - Created **customer-managed KMS key** `cultural-spaces-key-itu`
-- 
-  ![image](https://github.com/user-attachments/assets/4c36f45c-9633-42f9-bb9a-456c7053b2a1)
+  
+![image](https://github.com/user-attachments/assets/4c36f45c-9633-42f9-bb9a-456c7053b2a1)
 
 - Enabled **SSE-KMS encryption and bucket versioning** on raw data bucket `cps-raw-itu`
 
-  ![image](https://github.com/user-attachments/assets/a92377eb-e83e-4f05-bcb4-9b57c5c61eb0)
+![image](https://github.com/user-attachments/assets/a92377eb-e83e-4f05-bcb4-9b57c5c61eb0)
 
 - All uploaded data is now automatically encrypted at rest
 
 ### 4. Cross-Region Replication Setup (High Availability)
 - Enabled **cross-region replication** from:
   - `cps-raw-itu` and `cps-trf-itu` (Vancouver) → US East (Virginia)
-    ![image](https://github.com/user-attachments/assets/e865ba3d-3cd0-486a-84b4-b4c8976dd1d2)
+![image](https://github.com/user-attachments/assets/e865ba3d-3cd0-486a-84b4-b4c8976dd1d2)
 
 - Configured IAM role permissions via `LabRole`
 - Ensured replication includes **KMS-encrypted files**
@@ -391,19 +391,19 @@ Combined insights** | Identified the most common ownership and matched with min/
 
 ### 5. Data Quality Control (AWS Glue Data Quality Jobs)
 - Built **AWS Glue job**: `cultural-spaces-QC-itu`
-  ![image](https://github.com/user-attachments/assets/adca073a-54ce-4352-9f99-29fef4b01b18)
+![image](https://github.com/user-attachments/assets/adca073a-54ce-4352-9f99-29fef4b01b18)
 
 - Implemented **two rules**:
   - Completeness on `ownership` ≥ 95%
   - Uniqueness on `geom` ≥ 85%
-  ![image](https://github.com/user-attachments/assets/04bc5a13-141a-4740-b7aa-558d1417b3fd)
+![image](https://github.com/user-attachments/assets/04bc5a13-141a-4740-b7aa-558d1417b3fd)
 
 - Separated results into:
   - `Passed` folder: Valid, clean records
-  ![image](https://github.com/user-attachments/assets/41d9a824-9780-4d1e-911b-a9662ef2ce56)
+ ![image](https://github.com/user-attachments/assets/41d9a824-9780-4d1e-911b-a9662ef2ce56)
 
   - `Failed` folder: Duplicates or missing geometry (esp. 2015–2017 records)
-   ![image](https://github.com/user-attachments/assets/baa7be2f-412e-4db3-9d5f-f7db3dd3f333)
+ ![image](https://github.com/user-attachments/assets/baa7be2f-412e-4db3-9d5f-f7db3dd3f333)
 
 - Ensured QC results are stored cleanly for future transformation or exclusion
   
@@ -411,7 +411,7 @@ Combined insights** | Identified the most common ownership and matched with min/
 ### 6. Monitoring and Alerts (CloudWatch + CloudTrail)
 - Created **CloudWatch Alarm** `cultural-spaces-size-alm` to monitor `BucketSizeBytes`
   - Threshold: 40,000 bytes
-  ![image](https://github.com/user-attachments/assets/947da42b-f886-4a1c-ab4d-caaeb4b9fa70)
+![image](https://github.com/user-attachments/assets/947da42b-f886-4a1c-ab4d-caaeb4b9fa70)
   - Action: Email alert via **SNS** to `Itunuoluwa.moses@myucwest.ca`
 ![image](https://github.com/user-attachments/assets/a6a27962-0437-4fc3-8822-f0a1cc5cf13f)
 
@@ -463,7 +463,7 @@ Combined insights** | Identified the most common ownership and matched with min/
 
 
 
-# Data Wrangling Report: UCW Academic Hiring Dataset
+#Project 3:  Data Wrangling Report: UCW Academic Hiring Dataset
 
 ## Project Title
 Data Wrangling for UCW Academic Hiring Data
@@ -669,7 +669,7 @@ The UCW Academic Hiring dataset was successfully cleaned, transformed, and struc
 
 •	Final report and insights
 
-# Data Quality Control
+# Project 4:  Data Quality Control
 
 ## Project Title: Implementation of Data Quality Control Measures for the Academic Hiring Dataset
 
@@ -771,6 +771,7 @@ Feedback Mechanism
 ## Deliverables
    • A working Data Quality Control pipeline using AWS Glue
 ![image](https://github.com/user-attachments/assets/dc6fc41d-1276-491a-b5b0-a2162b8e3574)
+
 
    • Separate passed/failed dataset outputs organized in Amazon S3
    
